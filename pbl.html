@@ -5,92 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expense Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="pbl2_1.css" />
-    <style>
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            .print-visible, 
-            .print-visible *,
-            .chart-container, 
-            .chart-container * {
-                visibility: visible;
-            }
-            .container {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                margin: 0;
-                padding: 20px;
-            }
-            .chart-container {
-                height: 400px !important;
-                margin: 0 auto 30px;
-                page-break-after: avoid;
-            }
-            #list {
-                margin-top: 20px;
-            }
-            .delete-btn,
-            .btn.print,
-            form,
-            .inc-exp-container,
-            h3:last-of-type {
-                display: none !important;
-            }
-            h2 {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            h4 {
-                margin-bottom: 5px;
-            }
-            .money {
-                font-size: 18px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="pbl.css" />
 </head>
 <body>
-    <h2 class="print-visible">Expense Tracker</h2>
+  <body>
+    <div class="toggle-container">
+  <button id="themeToggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+</div>
+
     <div class="container">
-        <h4 class="print-visible">Your Balance</h4>
-        <h1 id="balance" class="print-visible">$0.00</h1>
-        <div class="inc-exp-container print-visible">
-            <div>
-                <h4>Income</h4>
-                <p id="money-plus" class="money money-plus">+$0.00</p>
-            </div>
-            <div>
-                <h4>Expense</h4>
-                <p id="money-minus" class="money money-minus">-$0.00</p>
-            </div>
+      <h2>Expense Tracker</h2>
+      <h4>Your Balance</h4>
+      <h1 id="balance">$0.00</h1>
+      
+       <div class="inc-exp-container">
+        <div>
+          <h4>Income</h4>
+          <p id="money-plus" class="money-plus">+$0.00</p>
         </div>
-
-        <div class="chart-container print-visible">
-            <canvas id="chart"></canvas>
+        <div>
+          <h4>Expense</h4>
+          <p id="money-minus" class="money-minus">-$0.00</p>
         </div>
+      </div>
+  
+      <div class="monthly-summary">
+        <h4>This Month's Total Spending</h4>
+        <p id="monthly-total" class="money">$0.00</p>
+      </div>
+  
+      <h3>Add new transaction</h3>
+      <!-- TOTAL AMOUNT INPUT -->
+<div class="input-group">
+  <label for="totalAmount">Total Amount (Monthly Budget)</label>
+  <input type="number" id="totalAmount" placeholder="Enter total monthly budget" />
+  <button onclick="setTotalAmount()">Set Amount</button>
+</div>
+<div class="input-group">
+  <input type="number" id="saving-amount" placeholder="Enter saved amount" />
+  <button onclick="addSaving()">Add Saving</button>
+</div>
 
-        <h3 class="print-visible">Transaction History</h3>
-        <ul id="list" class="list print-visible"></ul>
+<!-- ADD TRANSACTION FORM -->
+<form id="form">
+  <div class="input-group">
+    <label for="text">Spend amount on</label>
+    <input type="text" id="text" placeholder="e.g. Groceries, Snacks, Books" />
+  </div>
 
-        <h3>Add New Transaction</h3>
-        <form id="form">
-            <div class="form-control">
-                <label for="text">Text</label>
-                <input type="text" id="text" placeholder="Enter Text...." />
-            </div>
-            <div class="form-control">
-                <label for="amount">Amount <br> (negative - expense, positive - income)</label>
-                <input type="number" id="amount" placeholder="Enter amount..." />
-            </div>
-            <button class="btn">Add transaction</button>
-        </form>
+  <div class="input-group">
+    <label for="amount">Amount Spent</label>
+    <input type="number" id="amount" placeholder="Enter amount spent" />
+  </div>
 
-        <button class="btn print" onclick="window.print()">Print Report</button>
+  <div class="input-group">
+    <label for="date">Date</label>
+    <input type="date" id="date" />
+  </div>
+
+  <button type="submit">Add Transaction</button>
+</form>
+
+  
+      <h3>History</h3>
+      <ul id="list" class="list"></ul>
+  
+      <div class="chart-container">
+        <canvas id="chart"></canvas>
+      </div>
     </div>
-    <script src="pbl2_1.js"></script>
+  <script src="pbl.js"></script>
 </body>
-</html>
+<script>
+  document.body.classList.add('light-mode');
+</script>
+
